@@ -3,3 +3,18 @@ name: CI
 on:
   push:
   pull_request:
+
+jobs:
+  tests:
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@v1
+    with:
+      envs: |
+        - linux: py39-test
+        - macos: py310-test
+        - windows:py311-test
+
+  publish:
+    needs: tests
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@v1
+    secrets:
+      pypi_token: ${{ secrets.PYPI_TOKEN }}
