@@ -1,6 +1,9 @@
 IERS Earth Rotation and Leap Second tables for the astropy core package
 -----------------------------------------------------------------------
 
+**Note:** This package is not currently meant to be used directly by users, and only
+meant to be used from the core astropy package.
+
 License
 -------
 
