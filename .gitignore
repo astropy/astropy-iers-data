@@ -7,27 +7,12 @@
 *.dll
 __pycache__
 
-# Ignore .c files by default to avoid including generated code. If you want to
-# add a non-generated .c extension, put that into the src/ subdirectory of a
-# package or else use `git add -f filename.c`.
-*.c
-!astropy/*/src/*.c
-astropy/modeling/src/projections.c
-
 # Other generated files
 MANIFEST
-astropy/cython_version.py
-astropy/wcs/include/wcsconfig.h
-astropy/_erfa/core.py
-astropy/_version.py
 
 # Sphinx
 _build
 _generated
-docs/api
-docs/generated
-docs/visualization/ngc6976.jpeg
-docs/visualization/ngc6976-default.jpeg
 
 # Packages/installer info
 *.egg
@@ -49,12 +34,6 @@ venv
 # install astropy with pipenv will have these files generated
 Pipfile
 Pipfile.lock
-
-# pyinstaller files
-.pyinstaller/astropy_tests/
-.pyinstaller/run_astropy_tests
-.pyinstaller/run_astropy_tests.spec
-
 
 # Other
 .cache
@@ -89,3 +68,5 @@ pip-wheel-metadata
 
 # Files generated if figure tests are run
 results
+
+_version.py

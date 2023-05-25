@@ -1,5 +1,5 @@
-IERS and Leap Second tables for the astropy core package
---------------------------------------------------------
+IERS Earth Rotation and Leap Second tables for the astropy core package
+-----------------------------------------------------------------------
 
 License
 -------

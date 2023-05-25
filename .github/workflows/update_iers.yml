@@ -2,7 +2,7 @@ name: Auto-update IERS tables
 
 on:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 * * MON'
   workflow_dispatch:
 
 permissions:
@@ -38,4 +38,3 @@ jobs:
         title: Update IERS Earth rotation and leap second tables
         body: |
           This is an automated update of the IERS Earth rotation and leap second tables.
-
