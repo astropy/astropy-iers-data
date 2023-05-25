@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Get tag name from date
         id: tag_name
-        run: echo "date=$(date +'%Y.%m.%d.%H.%M.%S')" > $GITHUB_OUTPUT
+        run: echo "date=$(date +'%Y.%m.%d')" > $GITHUB_OUTPUT
       - name: Check tag
         run: echo ${{ steps.tag_name.outputs.date }}
       - name: Create tag
