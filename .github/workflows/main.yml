@@ -26,18 +26,24 @@ jobs:
     steps:
       - name: Get tag name from date
         id: tag_name
-        run: echo "date=$(date +'%Y.%m.%d')" > $GITHUB_OUTPUT
+        run: echo "version=0.$(date +'%Y.%m.%d.%H.%M.%S')" > $GITHUB_OUTPUT
       - name: Check tag
-        run: echo ${{ steps.tag_name.outputs.date }}
+        run: echo ${{ steps.tag_name.outputs.version }}
       - name: Create tag
         if: github.event_name == 'push' && github.ref_name == 'main'
         uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ steps.tag_name.outputs.date }}
+          custom_tag: 1.${{ steps.tag_name.outputs.version }}
 
   publish:
     needs: tag
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@v1
+    # For now, until the package is ready, we upload releases
+    # to the test PyPI server. Once we are ready for real releases,
+    # we will need to add a real PYPI_TOKEN and remove the
+    # repository_url below.
+    with:
+      repository_url: https://test.pypi.org/legacy/
     secrets:
-      pypi_token: ${{ secrets.PYPI_TOKEN }}
+      pypi_token: ${{ secrets.TEST_PYPI_TOKEN }}
