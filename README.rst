@@ -4,12 +4,14 @@ IERS Earth Rotation and Leap Second tables for the astropy core package
 **Note:** This package is not currently meant to be used directly by users, and only
 meant to be used from the core astropy package.
 
+https://docs.astropy.org/en/latest/utils/iers.html
+
 License
 -------
 
 This project is Copyright (c) Astropy Developers and licensed under
 the terms of the BSD 3-Clause license. This package is based upon
-the `Openastronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`_
+the `OpenAstronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`_
 which is licensed under the BSD 3-clause licence. See the licenses folder for
 more information.
 
