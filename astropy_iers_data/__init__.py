@@ -14,7 +14,7 @@ __all__ = [
     "IERS_B_README",
     "IERS_LEAP_SECOND_FILE",
     "IERS_LEAP_SECOND_URL",
-    "IERS_LEAP_SECOND_URL_MIRROR"
+    "IERS_LEAP_SECOND_URL_MIRROR",
 ]
 
 DATA = pathlib.Path(__file__).resolve().parent / "data"
@@ -34,6 +34,3 @@ IERS_B_README = str(DATA / "ReadMe.eopc04")
 IERS_LEAP_SECOND_FILE = str(DATA / "Leap_Second.dat")
 IERS_LEAP_SECOND_URL = "https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat"
 IERS_LEAP_SECOND_URL_MIRROR = "https://www.ietf.org/timezones/data/leap-seconds.list"
-
-# TODO: should we include the 'IAU2000' pre-2023-style file?
-IERS_B_IAU2000_README = str(DATA / "ReadMe.eopc04_IAU2000")
