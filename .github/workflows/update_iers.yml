@@ -38,3 +38,5 @@ jobs:
         title: Update IERS Earth rotation and leap second tables
         body: |
           This is an automated update of the IERS Earth rotation and leap second tables.
+          
+          To run the continuous integration, you will need to manually close and re-open this pull request.
