@@ -14,10 +14,9 @@ jobs:
         - macos: py310-test
         - windows: py311-test
 
-  # Automatically tag commits to main with the latest calendar version. Because
-  # we use major.year.month.day as the version, this means that we cannot have
-  # two versions in the same day, but if this is needed exceptionally, it is
-  # possible to manually push a tag.
+  # Automatically tag commits to main with the latest calendar version. Note that
+  # this does not currently support two versions in the same day, but if this is
+  # needed exceptionally, it is possible to manually push a tag.
   tag:
     needs: tests
     name: Tag latest commit to main using calendar version
@@ -27,7 +26,7 @@ jobs:
     steps:
       - name: Get tag name from date
         id: tag_name
-        run: echo "version=0.$(date +'%Y.%m.%d')" > $GITHUB_OUTPUT
+        run: echo "version=0.$(date +'%Y.%m.%d.%H.%M.%S')" > $GITHUB_OUTPUT
       - name: Check tag
         run: echo ${{ steps.tag_name.outputs.version }}
       - name: Create tag
@@ -48,7 +47,7 @@ jobs:
       repository_url: https://test.pypi.org/legacy/
       # The usual tag condition for uploading to PyPI doesn't work because the tag has just been
       # created, but we know we can run on any push to main since this is the same condition for
-      # making a tag above.
+      # making a tag above.  
       upload_to_pypi: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
     secrets:
       pypi_token: ${{ secrets.TEST_PYPI_TOKEN }}
