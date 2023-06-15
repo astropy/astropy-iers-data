@@ -39,15 +39,10 @@ jobs:
   publish:
     needs: tag
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@v1
-    # For now, until the package is ready, we upload releases
-    # to the test PyPI server. Once we are ready for real releases,
-    # we will need to add a real PYPI_TOKEN and remove the
-    # repository_url below.
     with:
-      repository_url: https://test.pypi.org/legacy/
       # The usual tag condition for uploading to PyPI doesn't work because the tag has just been
       # created, but we know we can run on any push to main since this is the same condition for
       # making a tag above.  
       upload_to_pypi: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
     secrets:
-      pypi_token: ${{ secrets.TEST_PYPI_TOKEN }}
+      pypi_token: ${{ secrets.PYPI_TOKEN }}
