@@ -15,7 +15,7 @@ jobs:
       pull-requests: write  # for peter-evans/create-pull-request to create a PR
     name: Auto-update IERS tables
     runs-on: ubuntu-latest
-    if: github.repository == 'astrofrog/astropy-iers-data'
+    if: github.repository == 'astropy/astropy-iers-data'
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
