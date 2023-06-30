@@ -40,6 +40,7 @@ jobs:
         echo "new_sha=$(git rev-parse HEAD)" > $GITHUB_OUTPUT
 
   tests:
+    name: Run tests
     needs: update
     if: needs.update.outputs.changed
     uses: astrofrog/github-actions-workflows/.github/workflows/tox.yml@checkout-ref
