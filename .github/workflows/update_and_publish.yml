@@ -2,8 +2,7 @@ name: Update data files and publish
 
 on:
   schedule:
-    # - cron: '0 0 * * MON'
-    - cron: '* * * * *'
+    - cron: '0 0 * * MON'
   workflow_dispatch:
 
 jobs:
@@ -11,7 +10,7 @@ jobs:
   update:
     name: Auto-update IERS tables
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'astrofrog/astropy-iers-data' && github.ref_name == 'main' }}
+    if: ${{ github.repository == 'astropy/astropy-iers-data' && github.ref_name == 'main' }}
     outputs:
       changed: ${{ steps.check.outputs.changed }}
       new_sha: ${{ steps.commit.outputs.new_sha }}
@@ -97,8 +96,8 @@ jobs:
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       # The usual tag condition for uploading to PyPI doesn't work because the tag has just been
-      # created, but we know we can run on any push to main since this is the same condition for
-      # making a tag above.
-      upload_to_pypi: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+      # created, but we know we can run this here since we already checked above that we were only
+      # running in the main branch of the primary repo.
+      upload_to_pypi: true
     secrets:
       pypi_token: ${{ secrets.PYPI_TOKEN }}
