@@ -28,6 +28,20 @@ jobs:
         else
           echo "changed=false" > $GITHUB_OUTPUT
         fi
+
+    - uses: actions/setup-python@v4
+      if: steps.check.outputs.changed
+      with:
+        python-version: '3.x'
+
+    - name: Install tox
+      if: steps.check.outputs.changed
+      run: pip install tox
+
+    - name: Run preliminary tests
+      if: steps.check.outputs.changed
+      run: tox -e test
+
     - name: Commit changes
       id: commit
       if: steps.check.outputs.changed
@@ -40,7 +54,7 @@ jobs:
         echo "new_sha=$(git rev-parse HEAD)" > $GITHUB_OUTPUT
 
   tests:
-    name: Run tests
+    name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
     uses: astrofrog/github-actions-workflows/.github/workflows/tox.yml@checkout-ref
