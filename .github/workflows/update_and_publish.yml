@@ -1,0 +1,101 @@
+name: Update data files and publish
+
+on:
+  schedule:
+    - cron: '0 0 * * MON'
+  workflow_dispatch:
+
+jobs:
+
+  update:
+    name: Auto-update IERS tables
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'astropy/astropy-iers-data' && github.ref_name == 'main' }}
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+      new_sha: ${{ steps.commit.outputs.new_sha }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Download latest IERS files
+      run: ./update_data.sh
+    - name: Check for changes
+      id: check
+      run: |
+        if ! git diff --exit-code; then
+          echo "changed=true" > $GITHUB_OUTPUT
+        else
+          echo "changed=false" > $GITHUB_OUTPUT
+        fi
+
+    - uses: actions/setup-python@v4
+      if: steps.check.outputs.changed
+      with:
+        python-version: '3.x'
+
+    - name: Install tox
+      if: steps.check.outputs.changed
+      run: pip install tox
+
+    - name: Run preliminary tests
+      if: steps.check.outputs.changed
+      run: tox -e test
+
+    - name: Commit changes
+      id: commit
+      if: steps.check.outputs.changed
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add astropy_iers_data/data
+        git commit -m "Update IERS Earth rotation and leap second tables"
+        git push
+        echo "new_sha=$(git rev-parse HEAD)" > $GITHUB_OUTPUT
+
+  tests:
+    name: Run tests on all platforms
+    needs: update
+    if: needs.update.outputs.changed
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
+    with:
+      checkout_ref: ${{ needs.update.outputs.new_sha }}
+      envs: |
+        - linux: py39-test
+        - macos: py310-test
+        - windows: py311-test
+
+  tag:
+    name: Tag latest commit to main using calendar version
+    needs: tests
+    if: needs.update.outputs.changed
+    outputs:
+       new_tag: ${{ steps.tag_name.outputs.version }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.update.outputs.new_sha }}
+      - name: Get tag name from date
+        id: tag_name
+        run: echo "version=0.$(date +'%Y.%m.%d.%H.%M.%S')" > $GITHUB_OUTPUT
+      - name: Check tag
+        run: echo ${{ steps.tag_name.outputs.version }}
+      - name: Create tag
+        if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.tag_name.outputs.version }}
+
+  publish:
+    name: Publish the release to PyPI
+    needs: tag
+    if: needs.update.outputs.changed
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@main
+    with:
+      checkout_ref: ${{ needs.tag.outputs.new_tag }}
+    secrets:
+      pypi_token: ${{ secrets.PYPI_TOKEN }}
