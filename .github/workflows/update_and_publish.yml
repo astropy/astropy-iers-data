@@ -56,7 +56,7 @@ jobs:
     name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
-    uses: astrofrog/github-actions-workflows/.github/workflows/tox.yml@checkout-ref
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
@@ -92,7 +92,7 @@ jobs:
     name: Publish the release to PyPI
     needs: tag
     if: needs.update.outputs.changed
-    uses: astrofrog/github-actions-workflows/.github/workflows/publish_pure_python.yml@checkout-ref
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@main
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       # The usual tag condition for uploading to PyPI doesn't work because the tag has just been
