@@ -80,17 +80,15 @@ jobs:
           ref: ${{ needs.update.outputs.new_sha }}
       - name: Get tag name from date
         id: tag_name
-        run: echo "version=0.$(date +'%Y.%m.%d.%H.%M.%S')" > $GITHUB_OUTPUT
+        run: echo "version=v0.$(date +'%Y.%m.%d.%H.%M.%S')" > $GITHUB_OUTPUT
       - name: Check tag
         run: echo ${{ steps.tag_name.outputs.version }}
       - name: Create tag
-        if: github.event_name == 'push' && github.ref_name == 'main'
         uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.tag_name.outputs.version }}
       - name: Create GitHub release
-        if: github.event_name == 'push' && github.ref_name == 'main'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag_name.outputs.version }}
