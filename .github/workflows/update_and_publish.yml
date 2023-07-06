@@ -102,5 +102,6 @@ jobs:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@main
     with:
       checkout_ref: ${{ needs.tag.outputs.new_tag }}
+      upload_to_pypi: true
     secrets:
       pypi_token: ${{ secrets.PYPI_TOKEN }}
