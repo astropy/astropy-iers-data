@@ -68,6 +68,8 @@ jobs:
     name: Tag latest commit to main using calendar version
     needs: tests
     if: needs.update.outputs.changed
+    outputs:
+       new_tag: ${{ steps.tag_name.outputs.version }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -94,10 +96,6 @@ jobs:
     if: needs.update.outputs.changed
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@main
     with:
-      checkout_ref: ${{ needs.update.outputs.new_sha }}
-      # The usual tag condition for uploading to PyPI doesn't work because the tag has just been
-      # created, but we know we can run this here since we already checked above that we were only
-      # running in the main branch of the primary repo.
-      upload_to_pypi: true
+      checkout_ref: ${{ needs.tag.outputs.new_tag }}
     secrets:
       pypi_token: ${{ secrets.PYPI_TOKEN }}
