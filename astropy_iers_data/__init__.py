@@ -33,4 +33,4 @@ IERS_B_README = str(DATA / "ReadMe.eopc04")
 # LEAP SECONDS default file name, URL, and alternative format/URL
 IERS_LEAP_SECOND_FILE = str(DATA / "Leap_Second.dat")
 IERS_LEAP_SECOND_URL = "https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat"
-IERS_LEAP_SECOND_URL_MIRROR = "https://www.ietf.org/timezones/data/leap-seconds.list"
+IERS_LEAP_SECOND_URL_MIRROR = "https://data.iana.org/time-zones/data/leap-seconds.list"
