@@ -60,9 +60,9 @@ jobs:
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
-        - linux: py39-test
-        - macos: py310-test
-        - windows: py311-test
+        - linux: py310-test
+        - macos: py311-test
+        - windows: py312-test
 
   tag:
     name: Tag latest commit to main using calendar version
