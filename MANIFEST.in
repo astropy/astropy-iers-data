@@ -3,4 +3,4 @@ prune .github
 exclude .gitignore
 exclude update_data.sh
 exclude MANIFEST.in
-include astropy_iers_data/data/*.*
+include astropy_iers_data/data/*
