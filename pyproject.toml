@@ -43,3 +43,4 @@
 
 [tool.setuptools_scm]
 write_to = "astropy_iers_data/_version.py"
+normalize = false
