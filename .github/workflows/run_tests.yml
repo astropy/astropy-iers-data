@@ -15,4 +15,4 @@ jobs:
       envs: |
         - linux: py310-test
         - macos: py311-test
-        - windows: py312-test
+        - windows: py312-test-astropydev
