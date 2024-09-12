@@ -80,7 +80,7 @@ jobs:
           ref: ${{ needs.update.outputs.new_sha }}
       - name: Get tag name from date
         id: tag_name
-        run: echo "version=v0.$(date +'%Y.%m.%d.%H.%M.%S')" > $GITHUB_OUTPUT
+        run: echo "version=v0.$(date +'%Y.%-m.%-d.%-H.%-M.%-S')" > $GITHUB_OUTPUT
       - name: Check tag
         run: echo ${{ steps.tag_name.outputs.version }}
       - name: Create tag
