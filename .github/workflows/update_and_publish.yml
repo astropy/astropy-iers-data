@@ -16,7 +16,7 @@ jobs:
       new_sha: ${{ steps.commit.outputs.new_sha }}
     steps:
     - name: Checkout code
-      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938  # v4.2.0
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871  # v4.2.1
     - name: Download latest IERS files
       run: ./update_data.sh
     - name: Check for changes
@@ -75,7 +75,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938  # v4.2.0
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871  # v4.2.1
         with:
           ref: ${{ needs.update.outputs.new_sha }}
       - name: Get tag name from date
