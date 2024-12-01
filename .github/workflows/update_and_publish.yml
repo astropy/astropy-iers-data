@@ -56,7 +56,7 @@ jobs:
     name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@924441154cf3053034c6513d5e06c69d262fb9a6  # v1.13.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@d68193b68216da64eafaa618f53c59f5d271c56e  # v1.14.0
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
@@ -90,7 +90,7 @@ jobs:
           custom_tag: ${{ steps.tag_name.outputs.version }}
           tag_prefix: ""
       - name: Create GitHub release
-        uses: softprops/action-gh-release@e7a8f85e1c67a31e6ed99a94b41bd0b71bbee6b8  # v2.0.9
+        uses: softprops/action-gh-release@01570a1f39cb168c169c802c3bceb9e93fb10974  # v2.1.0
         with:
           tag_name: ${{ steps.tag_name.outputs.version }}
           generate_release_notes: true
@@ -99,7 +99,7 @@ jobs:
     name: Publish the release to PyPI
     needs: tag
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@924441154cf3053034c6513d5e06c69d262fb9a6  # v1.13.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@d68193b68216da64eafaa618f53c59f5d271c56e  # v1.14.0
     with:
       checkout_ref: ${{ needs.tag.outputs.new_tag }}
       upload_to_pypi: true
