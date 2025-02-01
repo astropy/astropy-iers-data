@@ -28,7 +28,7 @@ jobs:
           echo "changed=false" > $GITHUB_OUTPUT
         fi
 
-    - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b  # v5.3.0
+    - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38  # v5.4.0
       if: steps.check.outputs.changed
       with:
         python-version: '3.x'
@@ -56,7 +56,7 @@ jobs:
     name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@9f1f43251dde69da8613ea8e11144f05cdea41d5  # v1.15.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@8c0fde6f7e926df6ed7057255d29afa9c1ad5320  # v1.16.0
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
@@ -90,7 +90,7 @@ jobs:
           custom_tag: ${{ steps.tag_name.outputs.version }}
           tag_prefix: ""
       - name: Create GitHub release
-        uses: softprops/action-gh-release@7b4da11513bf3f43f9999e90eabced41ab8bb048  # v2.2.0
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda  # v2.2.1
         with:
           tag_name: ${{ steps.tag_name.outputs.version }}
           generate_release_notes: true
@@ -99,7 +99,7 @@ jobs:
     name: Publish the release to PyPI
     needs: tag
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@9f1f43251dde69da8613ea8e11144f05cdea41d5  # v1.15.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@8c0fde6f7e926df6ed7057255d29afa9c1ad5320  # v1.16.0
     with:
       checkout_ref: ${{ needs.tag.outputs.new_tag }}
       upload_to_pypi: true
