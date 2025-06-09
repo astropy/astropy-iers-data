@@ -1,5 +1,0 @@
-# All files which are tracked by git and not explicitly excluded here are included by setuptools_scm
-prune .github
-exclude .gitignore
-exclude scripts/update_data.sh
-exclude MANIFEST.in
