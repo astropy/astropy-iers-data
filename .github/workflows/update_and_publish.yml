@@ -56,7 +56,7 @@ jobs:
     name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@86823142467dd2afcd1bbac57d3a664cf468eb3b  # v2.1.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@28e947497bed4d6ec3fa1d66d198e95a1d17bc63  # v2.2.1
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
@@ -99,7 +99,7 @@ jobs:
     name: Publish the release to PyPI
     needs: tag
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@86823142467dd2afcd1bbac57d3a664cf468eb3b  # v2.1.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@28e947497bed4d6ec3fa1d66d198e95a1d17bc63  # v2.2.1
     with:
       checkout_ref: ${{ needs.tag.outputs.new_tag }}
       upload_to_pypi: true
