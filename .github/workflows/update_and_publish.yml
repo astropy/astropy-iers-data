@@ -16,7 +16,7 @@ jobs:
       new_sha: ${{ steps.commit.outputs.new_sha }}
     steps:
     - name: Checkout code
-      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+      uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6.0.0
     - name: Download latest IERS files
       run: ./scripts/update_data.sh
     - name: Check for changes
@@ -28,7 +28,7 @@ jobs:
           echo "changed=false" > $GITHUB_OUTPUT
         fi
 
-    - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c  # v6.0.0
+    - uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548  # v6.1.0
       if: steps.check.outputs.changed
       with:
         python-version: '3.x'
@@ -56,7 +56,7 @@ jobs:
     name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@d9b81a07e789d1b1921ab5fe33de2ddcbbd02c3f  # v2.3.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@9f1fedda61294df4c004c05519a3fbf3b8e1f32f  # v2.3.1
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
@@ -75,7 +75,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6.0.0
         with:
           ref: ${{ needs.update.outputs.new_sha }}
       - name: Get tag name from date
@@ -90,7 +90,7 @@ jobs:
           custom_tag: ${{ steps.tag_name.outputs.version }}
           tag_prefix: ""
       - name: Create GitHub release
-        uses: softprops/action-gh-release@6da8fa9354ddfdc4aeace5fc48d7f679b5214090  # v2.4.1
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b  # v2.5.0
         with:
           tag_name: ${{ steps.tag_name.outputs.version }}
           generate_release_notes: true
@@ -99,7 +99,7 @@ jobs:
     name: Publish the release to PyPI
     needs: tag
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@d9b81a07e789d1b1921ab5fe33de2ddcbbd02c3f  # v2.3.0
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@9f1fedda61294df4c004c05519a3fbf3b8e1f32f  # v2.3.1
     with:
       checkout_ref: ${{ needs.tag.outputs.new_tag }}
       upload_to_pypi: true
