@@ -16,3 +16,9 @@ jobs:
         - linux: py310-test
         - macos: py311-test
         - windows: py312-test-astropydev
+
+  mypy:
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@9f1fedda61294df4c004c05519a3fbf3b8e1f32f  # v2.3.1
+    with:
+      envs: |
+        - linux: mypy
