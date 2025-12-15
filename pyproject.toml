@@ -35,6 +35,9 @@ docs = [
   "pytest"
 ]
 
+[dependency-groups]
+mypy = ["mypy"]
+
 [tool.hatch.version]
 source = "vcs"
 scheme = "plain"
@@ -47,3 +50,7 @@ exclude = [
   ".github/",
   "scripts/update_data.sh",
 ]
+
+[tool.mypy]
+packages = ["astropy_iers_data"]
+strict = true
