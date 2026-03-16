@@ -19,9 +19,8 @@ jobs:
         - linux: py311-test
         - linux: py312-test
         - linux: py313-test
-        - linux: py314-test
         - linux: py314-test-astropydev
-        - macos: py38-test
+        - macos: py310-test
         - macos: py314-test
-        - windows: py38-test
+        - windows: py310-test
         - windows: py314-test
