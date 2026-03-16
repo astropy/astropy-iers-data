@@ -7,7 +7,7 @@ name = "astropy-iers-data"
 dynamic = ["version"]
 description = "IERS Earth Rotation and Leap Second tables for the astropy core package"
 readme = "README.rst"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = "BSD-3-Clause"
 license-files = ["LICENSE.rst"]
 keywords = ["astropy", "data", "IERS"]
