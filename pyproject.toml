@@ -43,7 +43,7 @@ scheme = "plain"
 version-file = "astropy_iers_data/_version.py"
 
 [tool.hatch.build.targets.sdist]
-exclude = [
-  ".github/",
-  "scripts/update_data.sh",
+only-include = [
+  "astropy_iers_data",
+  "tests",
 ]
