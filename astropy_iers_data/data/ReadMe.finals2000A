@@ -21,7 +21,7 @@ Byte-by-byte Description of file: *
    Bytes Format Units  Label  Explanations
 --------------------------------------------------------------------------------
   1-   2   I2    ---     year         To get true calendar year, add 1900 for 
-                                      MJD<=51543 or add 2000 for MJD>=51544)
+                                      MJD<=51543 or add 2000 for MJD>=51544
   3-   4   I2    ---     month
   5-   6   I2    ---     day          of month
   8-  15   F8.2    d     MJD          fractional Modified Julian Date (MJD UTC)
