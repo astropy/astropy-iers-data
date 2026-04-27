@@ -46,4 +46,5 @@ version-file = "astropy_iers_data/_version.py"
 only-include = [
   "astropy_iers_data",
   "tests",
+  "tox.ini",
 ]
