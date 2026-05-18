@@ -8,6 +8,8 @@ on:
   push:
   pull_request:
 
+permissions: {}
+
 jobs:
   tests:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@2835f0cacddf3f8de198db9afdb5354a5cebe0ef  # v2.6.3
