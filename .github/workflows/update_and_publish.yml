@@ -16,7 +16,7 @@ jobs:
       new_sha: ${{ steps.commit.outputs.new_sha }}
     steps:
     - name: Checkout code
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
     - name: Download latest IERS files
       run: ./scripts/update_data.sh
     - name: Check for changes
@@ -56,7 +56,7 @@ jobs:
     name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@2835f0cacddf3f8de198db9afdb5354a5cebe0ef  # v2.6.3
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@6ae6691dfae7f207db7b694e2bbe1c515cf907ab  # v3.0.0
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
@@ -77,7 +77,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ needs.update.outputs.new_sha }}
       - name: Get tag name from date
@@ -98,7 +98,7 @@ jobs:
     name: Publish the release to PyPI
     needs: [update, tag]
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@2835f0cacddf3f8de198db9afdb5354a5cebe0ef  # v2.6.3
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@6ae6691dfae7f207db7b694e2bbe1c515cf907ab  # v3.0.0
     with:
       checkout_ref: ${{ needs.tag.outputs.new_tag }}
       upload_to_pypi: true
