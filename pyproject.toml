@@ -25,14 +25,13 @@ classifiers = [
 repository = "https://github.com/astropy/astropy-iers-data"
 documentation = "https://github.com/astropy/astropy-iers-data/blob/main/README.rst"
 
-[project.optional-dependencies]
+[dependency-groups]
 test = [
-  "pytest",
-  "pytest-remotedata",
-  "hypothesis",
+  "pytest>=9.0.0",
 ]
-docs = [
-  "pytest"
+integration = [
+  {include-group = "test"},
+  "astropy[test]>=6.0.0",
 ]
 
 [tool.hatch.version]
