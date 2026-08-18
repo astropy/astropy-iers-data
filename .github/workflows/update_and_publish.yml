@@ -84,7 +84,9 @@ jobs:
         id: tag_name
         run: echo "version=v0.$(date +'%Y.%-m.%-d.%-H.%-M.%-S')" > $GITHUB_OUTPUT
       - name: Check tag
-        run: echo ${{ steps.tag_name.outputs.version }}
+        run: echo ${STEPS_TAG_NAME_OUTPUTS_VERSION}
+        env:
+          STEPS_TAG_NAME_OUTPUTS_VERSION: ${{ steps.tag_name.outputs.version }}
       - name: Create tag
         uses: mathieudutour/github-tag-action@a22cf08638b34d5badda920f9daf6e72c477b07b  # v6.2
         with:
