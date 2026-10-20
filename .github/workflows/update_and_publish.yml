@@ -5,9 +5,13 @@ on:
     - cron: '0 0 * * MON'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
 
   update:
+    permissions:
+      contents: write  # to create a branch
     name: Auto-update IERS tables
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'astropy/astropy-iers-data' && github.ref_name == 'main' }}
