@@ -21,6 +21,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      with:
+        persist-credentials: true # needed for git push
     - name: Download latest IERS files
       run: ./scripts/update_data.sh
     - name: Check for changes
@@ -84,6 +86,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: ${{ needs.update.outputs.new_sha }}
+          persist-credentials: false
       - name: Get tag name from date
         id: tag_name
         run: echo "version=v0.$(date +'%Y.%-m.%-d.%-H.%-M.%-S')" > $GITHUB_OUTPUT
