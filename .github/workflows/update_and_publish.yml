@@ -62,7 +62,7 @@ jobs:
     name: Run tests on all platforms
     needs: update
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@22ddf09dfabb443adddfb9f861b7d41a787d6b1a  # v3.0.3
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@3a3dcf3ba6828dac29eba10334948ef38364ed14  # v3.1.0
     with:
       checkout_ref: ${{ needs.update.outputs.new_sha }}
       envs: |
@@ -95,7 +95,7 @@ jobs:
         env:
           STEPS_TAG_NAME_OUTPUTS_VERSION: ${{ steps.tag_name.outputs.version }}
       - name: Create tag
-        uses: mathieudutour/github-tag-action@a22cf08638b34d5badda920f9daf6e72c477b07b  # v6.2
+        uses: mathieudutour/github-tag-action@af99e60ce8132224b8e6ebab5023449fe256ed46  # v7
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.tag_name.outputs.version }}
@@ -107,7 +107,7 @@ jobs:
     name: Publish the release to PyPI
     needs: [update, tag]
     if: needs.update.outputs.changed
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@22ddf09dfabb443adddfb9f861b7d41a787d6b1a  # v3.0.3
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish_pure_python.yml@3a3dcf3ba6828dac29eba10334948ef38364ed14  # v3.1.0
     with:
       checkout_ref: ${{ needs.tag.outputs.new_tag }}
       # We use trusted publishing so the upload is handled in a separate job below
@@ -129,4 +129,4 @@ jobs:
           pattern: dist-*
           path: dist
       - name: Upload to PyPI
-        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
