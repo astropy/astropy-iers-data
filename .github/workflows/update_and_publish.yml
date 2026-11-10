@@ -101,7 +101,9 @@ jobs:
           custom_tag: ${{ steps.tag_name.outputs.version }}
           tag_prefix: ""
       - name: Create GitHub release
-        run: gh release create ${{ steps.tag_name.outputs.version }} --generate-notes
+        run: gh release create ${STEPS_TAG_NAME_OUTPUTS_VERSION} --generate-notes
+        env:
+          STEPS_TAG_NAME_OUTPUTS_VERSION: ${{ steps.tag_name.outputs.version }}
 
   build:
     name: Publish the release to PyPI
